@@ -19,13 +19,44 @@ export default class productModel {
     products.push(newProd);
     return true;
   }
+
+
+  // To add new product -- U --
+  static getProductByID(_id){
+    const productReq = products.filter((item) => item.id === _id);
+    return productReq[0];
+  }
+  static editProduct(prodObj){
+    let editDone = false;
+    for(let i=0;i<products.length;i++){
+      if(products[i].id === prodObj.id){
+        products[i].name = prodObj.name;
+        products[i].desc = prodObj.desc;
+        products[i].price = prodObj.price;
+        products[i].imgURL = prodObj.imgURL;
+        editDone = true;
+        break;
+      }
+    }
+    return editDone;
+  }
+  static isValidID(_id){
+    let idFound = false;
+    for(let i=0;i<products.length;i++){
+      if(products[i].id === Number(_id)){
+        idFound = true;
+        break;
+      }
+    }
+    return idFound;
+  }
 }
 
 const products = [
   new productModel(
     1,
     "Ikigai",
-    "It's the Japanese word for 'a reason to live' or 'a reason to jump out of bed in the morning'.",
+    "It's the Japanese word for 'a reason to live' or 'a reason to jump out of bed in the morning.",
     400,
     "https://m.media-amazon.com/images/I/81l3rZK4lnL.jpg"
   ),
