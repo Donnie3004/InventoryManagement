@@ -50,25 +50,35 @@ export default class productModel {
     }
     return idFound;
   }
+
+  // To add new product -- D --
+  static findAndDelete(_id){
+    console.log("herrreee....")
+    let wasDeleted = false;
+    const originalLength = products.length;
+    products = products.filter(item => item.id !== _id);
+    wasDeleted = products.length < originalLength;
+    return wasDeleted;
+  }
 }
 
-const products = [
+let products = [
   new productModel(
-    1,
+    1001,
     "Ikigai",
     "It's the Japanese word for 'a reason to live' or 'a reason to jump out of bed in the morning.",
     400,
     "https://m.media-amazon.com/images/I/81l3rZK4lnL.jpg"
   ),
   new productModel(
-    2,
+    1002,
     'Atomic Habits',
     "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
     300,
     "https://m.media-amazon.com/images/I/81F90H7hnML.jpg"
   ),
   new productModel(
-    3,
+    1003,
     'Eat that Frog',
     "21 Great Ways to Stop Procrastinating and Get More Done in Less Time",
     150,

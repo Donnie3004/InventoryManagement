@@ -1,8 +1,8 @@
   <div class="table-responsive" style="margin: 20px;">
     <table class="table bg-dark" data-bs-theme="dark" >
-      <thead>
+      <thead style="text-align: center;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">S.No.</th>
           <th scope="col">Name</th>
           <th scope="col">Description</th>
           <th scope="col">Price</th>
@@ -10,10 +10,10 @@
           <th scope="col">Options</th>
         </tr>
       </thead>
-      <tbody class="table-group-divider">
+      <tbody class="table-group-divider" style="text-align: center;">
         <% for(let i=0;i< productsVar.length ; i++) {%>
         <tr>
-          <th scope="row"><%= productsVar[i].id %></th>
+          <th scope="row"><%= i+1 %></th>
           <td><%= productsVar[i].name %></td>
           <td><%= productsVar[i].desc %></td>
           <td><%= productsVar[i].price %></td>
@@ -22,6 +22,7 @@
           </td>
           <td>
             <a href="/product-edit?id=<%= productsVar[i].id %>"><button type="button" class="btn btn-primary">Edit</button></a>
+            <a href="/delete-product?id=<%= productsVar[i].id %>"><button type="button" class="btn btn-danger">Delete</button></a>
           </td>
         </tr>
         <%} %>

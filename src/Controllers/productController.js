@@ -91,7 +91,6 @@ export default class productController{
     return res.render('newProduct', {titleEJS : 'Inventory Management - Edit',productid:product.id, name:product.name, desc:product.desc, price:product.price, imgURL:product.imgURL, isEdit:true});
   }
 
-
   editProductSave(req, res){
     const {id, name, Description, Price, ImageURL} = req.body;  // 1. Get the data.
     let errors = [];
@@ -151,6 +150,15 @@ export default class productController{
         return res.send("Unsuccessful");
       }
       
+    }
+  }
+
+  // To delete a product -- D --
+  deleteProduct(req, res){
+    const {id} = req.query;
+    let check = productModel.findAndDelete(Number(id));
+    if (check) {
+      return res.redirect("/");
     }
   }
 }

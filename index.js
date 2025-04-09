@@ -22,6 +22,7 @@ server.get('/Add-product', productController.addNewProduct);
 server.post('/Add-product-save', productController.addNewProductSave);
 server.get('/product-edit', productController.getProductByID);
 server.post('/Edit-product-save', productController.editProductSave);
+server.get('/delete-product', productController.deleteProduct);
 
 
 // server.post('/test', (req, res)=>{
