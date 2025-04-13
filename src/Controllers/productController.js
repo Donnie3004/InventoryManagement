@@ -155,10 +155,30 @@ export default class productController{
 
   // To delete a product -- D --
   deleteProduct(req, res){
-    const {id} = req.query;
-    let check = productModel.findAndDelete(Number(id));
-    if (check) {
-      return res.redirect("/");
+    const {id} = req.params;
+    let errorMsg = '';
+    let _id = Number(id);
+    if(Number.isNaN(_id)){
+      errorMsg = 'Not a valid ID';
     }
+
+    let isValidID = productModel.isValidID(_id);
+
+    if(!isValidID){
+      errorMsg = 'ID is not present...!';
+    }
+    // errorMsg = 'error is there...!';
+    if(errorMsg){
+      return res.status(401).json({
+        'success':false,
+        errorMsg:errorMsg
+      })
+    }
+
+    productModel.findAndDelete(_id);
+
+    return res.status(200).json({
+      'success':true
+    })
   }
 }

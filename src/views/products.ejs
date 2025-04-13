@@ -22,7 +22,7 @@
           </td>
           <td>
             <a href="/product-edit?id=<%= productsVar[i].id %>"><button type="button" class="btn btn-primary">Edit</button></a>
-            <a href="/delete-product?id=<%= productsVar[i].id %>"><button type="button" class="btn btn-danger">Delete</button></a>
+            <button type="button" class="btn btn-danger delete-product-button" onclick="handleDeleteProductBtn('<%= productsVar[i].id%>')">Delete</button>
           </td>
         </tr>
         <%} %>

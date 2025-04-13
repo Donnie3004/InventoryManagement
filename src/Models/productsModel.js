@@ -53,8 +53,8 @@ export default class productModel {
 
   // To add new product -- D --
   static findAndDelete(_id){
-    console.log("herrreee....")
     let wasDeleted = false;
+    console.log("inside model....", _id);
     const originalLength = products.length;
     products = products.filter(item => item.id !== _id);
     wasDeleted = products.length < originalLength;
