@@ -12,40 +12,46 @@
       <%var Button = "Add Product" %>
     <% } %>
 
-    <form style="width: 80%; margin: auto;" class="mt-5" action="<%= route%>" method="post">
+    <form style="width: 80%; margin: auto;" class="mt-5" action="<%= route%>" method="post" enctype="multipart/form-data">
       <%if(locals.productid){%>
         <input type="hidden" name="id" value="<%=productid%>">
       <%}%>
       <div class="mb-3">
         <label for="Name" class="form-label">Product Name </label>
         <% if(locals.name){ %>
-          <input type="text" class="form-control" id="Name" name="name" aria-describedby="emailHelp" maxlength="300" value= <%=name%> required>
+          <input type="text" class="form-control" id="Name" name="name" maxlength="300" value= "<%=name%>" required>
         <% }else{ %>
-          <input type="text" class="form-control" id="Name" name="name" aria-describedby="emailHelp" maxlength="300" required>
+          <input type="text" class="form-control" id="Name" name="name" maxlength="300" required>
         <% } %>
       </div>
       <div class="mb-3">
         <label for="Description" class="form-label">Product Description </label>
         <% if(locals.desc){ %>
-          <input type="text" class="form-control" id="Description" name="Description" aria-describedby="emailHelp" value= <%=desc%> required>
+          <input type="text" class="form-control" id="Description" name="Description"  value= "<%=desc%>" required/>
         <% }else{ %>
-          <input type="text" class="form-control" id="Description" name="Description" aria-describedby="emailHelp" required>
+          <input type="text" class="form-control" id="Description" name="Description" required>
         <% } %>
       </div>
       <div class="mb-3">
         <label for="Price" class="form-label">Product Price </label>
         <% if(locals.price){ %>
-          <input type="number" class="form-control" id="Price" name="Price" aria-describedby="emailHelp" value= <%=price%> required>
+          <input type="number" class="form-control" id="Price" name="Price" value= <%=price%> required>
         <% }else{ %>
-          <input type="number" class="form-control" id="Price" name="Price" aria-describedby="emailHelp" required>
+          <input type="number" class="form-control" id="Price" name="Price" required>
         <% } %>
       </div>
       <div class="mb-3">
-        <label for="ImageURL" class="form-label">Product ImageURL </label>
+        <label for="ImageURL" class="form-label">Product Image : </label>
+        <!-- <input type="file" id="ImageURL" class="form-control" name="ImageURL" accept="image/*" required> -->
         <% if(locals.imgURL){ %>
-          <input type="url" class="form-control" id="ImageURL" name="ImageURL" aria-describedby="emailHelp" placeholder="https://example.com" pattern="https://.*" value= <%=imgURL%> required>
+          <img src="<%=locals.imgURL %>" alt="image" class="edit-image-display my-4">
+          <input type="file" id="ImageURL" class="form-control" name="ImageURL" accept="image/*">
+          <input type="hidden" class="form-control" id="ImageURL" name="ImageURL" value= <%=imgURL%> required>
+          <!-- <input type="url" class="form-control" id="ImageURL" name="ImageURL" aria-describedby="emailHelp" placeholder="https://example.com" pattern="https://.*" value= <%=imgURL%> required> -->
+           
         <% }else{ %>
-          <input type="url" class="form-control" id="ImageURL" name="ImageURL" aria-describedby="emailHelp" placeholder="https://example.com" pattern="https://.*" required>
+          <input type="file" id="ImageURL" class="form-control" name="ImageURL" accept="image/*" required>
+          <!-- <input type="url" class="form-control" id="ImageURL" name="ImageURL" aria-describedby="emailHelp" placeholder="https://example.com" pattern="https://.*" required> -->
         <% } %>
       </div>
       <button type="submit" class="btn btn-primary"><%=Button%></button>

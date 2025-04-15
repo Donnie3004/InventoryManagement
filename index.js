@@ -3,6 +3,7 @@ import path from 'path';
 // import {fileURLToPath} from 'url';
 import expressEjsLayouts from 'express-ejs-layouts';
 import ProductController from './src/Controllers/productController.js';
+import uploadFile from './src/middleware/uploadFile.js';
 
 const PORT = 8001;
 const server = express();
@@ -29,9 +30,9 @@ server.set('views', path.join(path.resolve(), 'src', 'views'));
 const productController = new ProductController();
 server.get('/', productController.getAllProducts);
 server.get('/Add-product', productController.addNewProduct);
-server.post('/Add-product-save', productController.addNewProductSave);
+server.post('/Add-product-save', uploadFile.single('ImageURL'), productController.addNewProductSave);
 server.get('/product-edit', productController.getProductByID);
-server.post('/Edit-product-save', productController.editProductSave);
+server.post('/Edit-product-save', uploadFile.single('ImageURL'), productController.editProductSave);
 server.delete('/delete-product/:id', productController.deleteProduct);
 
 

@@ -1,4 +1,4 @@
-import path from 'path';
+import escapeHTML from 'escape-html';
 import validator from 'validator';
 import productModel from '../Models/productsModel.js';
 
@@ -21,9 +21,19 @@ export default class productController{
     res.render("newProduct", {titleEJS : 'Inventory Management - ADD Product'}); // not passing ErrorMsg, so use locals in ejs to handle it
   }
   addNewProductSave(req, res){
-    const {name, Description, Price, ImageURL} = req.body;  // 1. Get the data.
+    const {name, Description, Price} = req.body;  // 1. Get the data.
+   
     let errors = [];
     // 2. Put all the validations
+
+    if(!req.file || !req.file.filename){
+      const ErrorMsg = "URL is not valid";
+      errors.push(ErrorMsg);
+     // return res.render("newProduct", {titleEJS : 'Inventory Management - Error', ErrorMsg : "URL is not valid" })
+    } 
+
+    const ImageURL = `http://localhost:8001/Images/${req.file.filename}`;
+
     if(!name){
       const ErrorMsg = "Name is Empty";
       errors.push(ErrorMsg);
@@ -45,12 +55,6 @@ export default class productController{
       const ErrorMsg = "negative price can't be given";
       errors.push(ErrorMsg);
       //return res.render("newProduct", {titleEJS : 'Inventory Management - Error', ErrorMsg : "negavtive price can't be given"}); 
-    }
-
-    if(!validator.isURL(ImageURL)){
-      const ErrorMsg = "URL is not valid";
-      errors.push(ErrorMsg);
-     // return res.render("newProduct", {titleEJS : 'Inventory Management - Error', ErrorMsg : "URL is not valid" })
     }
 
     if(errors.length > 0){
@@ -88,14 +92,20 @@ export default class productController{
     console.log(product);
     // return res.send(product);
     console.log(product.desc);
-    return res.render('newProduct', {titleEJS : 'Inventory Management - Edit',productid:product.id, name:product.name, desc:product.desc, price:product.price, imgURL:product.imgURL, isEdit:true});
+    return res.render('newProduct', {titleEJS : 'Inventory Management - Edit',productid:product.id, name:escapeHTML(product.name), desc:escapeHTML(product.desc), price:product.price, imgURL:product.imgURL, isEdit:true});
   }
 
   editProductSave(req, res){
-    const {id, name, Description, Price, ImageURL} = req.body;  // 1. Get the data.
+    const {id, name, Description, Price} = req.body;  // 1. Get the data.
+    let {ImageURL} = req.body;
+    console.log(req.body);
     let errors = [];
 
-    console.log(req.body);
+    if(req.file){
+      ImageURL = `http://localhost:8001/Images/${req.file.filename}`;
+    }
+
+    console.log('imageUrl  : ' , ImageURL);
 
     if(!productModel.isValidID(id)){
       const ErrorMsg = "ID is not valid";
@@ -124,12 +134,6 @@ export default class productController{
       const ErrorMsg = "negative price can't be given";
       errors.push(ErrorMsg);
       //return res.render("newProduct", {titleEJS : 'Inventory Management - Error', ErrorMsg : "negavtive price can't be given"}); 
-    }
-
-    if(!validator.isURL(ImageURL)){
-      const ErrorMsg = "URL is not valid";
-      errors.push(ErrorMsg);
-     // return res.render("newProduct", {titleEJS : 'Inventory Management - Error', ErrorMsg : "URL is not valid" })
     }
 
     if(errors.length > 0){
