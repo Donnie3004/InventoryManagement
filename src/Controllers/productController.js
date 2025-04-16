@@ -12,6 +12,10 @@ export default class productController{
   // To get products -- R --
   getAllProducts(req, res){
     // res.sendFile(path.join(path.resolve(), 'src', 'views', 'productsMain.ejs'));
+    console.log("req.user : ", req.user);
+    // if(!req.user){
+    //   return res.redirect('/user/login'); // if user is not logged in then redirect to home page
+    // }
     let products = productModel.getProducts();
     res.render('products', {titleEJS : 'Inventory Management', productsVar : products});
   }
